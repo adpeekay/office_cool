@@ -187,16 +187,12 @@ def simulate_cooling(df, glazing):
 # Main app logic
 # -------------------------------------------------------
 
-uploaded_file = st.file_uploader(
-    "Upload EPW weather file",
-    type=["epw"]
-)
-
-if uploaded_file and st.button("Run annual cooling simulation"):
+if st.button("Run annual cooling simulation"):
     with st.spinner("Running simulation..."):
-        df = load_epw(uploaded_file)
+        df = load_epw(epw_path)
         df = solar_geometry(df)
         df = irr_vertical(df, ORIENTATION)
+
 
         results = {}
 
