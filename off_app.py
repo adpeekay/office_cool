@@ -146,7 +146,7 @@ def irr_vertical(df, orientation_deg):
 # EPW loader
 # -------------------------------------------------------
 
-def load_epw(uploaded_file):
+def load_epw(path):
     df = pd.read_csv(path, skiprows=8, header=None)
     df.index = pd.date_range("2020-01-01 00:00", periods=len(df), freq="h")
 
