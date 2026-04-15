@@ -11,7 +11,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from pathlib import path 
+from pathlib import Path 
 
 EPW_DIR = Path("data")
 
