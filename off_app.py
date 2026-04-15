@@ -11,6 +11,9 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import path 
+
+EPW_DIR = Path("data")
 
 # -------------------------------------------------------
 # Page config
@@ -41,6 +44,23 @@ FLOOR_AREA = N_OCC * 15
 GLASS_AREA = st.sidebar.slider("Glazing area (m²)", 5, 50, 20)
 T_COOL = st.sidebar.slider("Cooling setpoint (°C)", 20, 28, 24)
 COP_COOL = st.sidebar.slider("Cooling COP", 2.0, 6.0, 3.0)
+
+st.sidebar.header("Weather Data")
+
+epw_files = sorted(EPW_DIR.glob("*.epw"))
+
+if not epw_files:
+    st.error("No EPW files found in /data directory")
+    st.stop()
+
+epw_names = [f.stem.replace("_", " ") for f in epw_files]
+
+selected_epw = st.sidebar.selectbox(
+    "Select EPW weather file",
+    epw_names
+)
+
+epw_path = epw_files[epw_names.index(selected_epw)]
 
 st.sidebar.markdown("---")
 st.sidebar.header("Run Simulation")
@@ -127,7 +147,7 @@ def irr_vertical(df, orientation_deg):
 # -------------------------------------------------------
 
 def load_epw(uploaded_file):
-    df = pd.read_csv(uploaded_file, skiprows=8, header=None)
+    df = pd.read_csv(path, skiprows=8, header=None)
     df.index = pd.date_range("2020-01-01 00:00", periods=len(df), freq="h")
 
     return df.rename(columns={
