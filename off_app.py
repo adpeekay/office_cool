@@ -205,6 +205,12 @@ if st.button("Run annual cooling simulation"):
     results_df = pd.DataFrame.from_dict(
         results, orient="index", columns=["Annual Cooling (kWh)"]
     )
+    baseline = results_df.loc["Normal Glass", "Annual Cooling (kWh)"] #added
+
+    results_df["Reduction vs Normal (%)"] = (
+        100 * (baseline - results_df["Annual Cooling (kWh)"]) / baseline
+    ) #added
+
     st.dataframe(results_df.style.format("{:.1f}"))
 
     # Plot
@@ -216,4 +222,4 @@ if st.button("Run annual cooling simulation"):
     st.pyplot(fig)
 
 else:
-    st.info("Upload an EPW file to begin.")
+    st.info("Select an EPW file to begin.")
