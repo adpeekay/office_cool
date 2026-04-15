@@ -75,6 +75,8 @@ GAIN_OCC = 120 * N_OCC
 GAIN_EQUIP = 8 * FLOOR_AREA
 GAIN_LIGHTS = 10 * FLOOR_AREA
 GAIN_INTERNAL = GAIN_OCC + GAIN_EQUIP + GAIN_LIGHTS
+#some details about each location 
+place = {"lag": {"unit_price": 0.12, "unit_C": 0.38}, "mad": {"unit_price": 0.20, "unit_C": 0.12}, "cam": {"unit_price": 0.27, "unit_C": 0.12}}
 
 # -------------------------------------------------------
 # Glazing definitions
@@ -207,10 +209,15 @@ if st.button("Run annual cooling simulation"):
     )
     baseline = results_df.loc["Normal Glass", "Annual Cooling (kWh)"] #added
 
-    results_df["Reduction vs Normal (%)"] = (
+    results_df["Reduction (%)"] = (
         100 * (baseline - results_df["Annual Cooling (kWh)"]) / baseline
     ) #added
 
+    #attempt to get grid  carbon and cost savings involved
+    #grid_df = pd.DataFrame.from_dict(place, orient="index", columns=["unit price", "unit carbon"])
+    
+    #result_df["Cost Saving (£)"] = (
+        
     st.dataframe(results_df.style.format("{:.1f}"))
 
     # Plot
