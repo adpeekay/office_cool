@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path 
 
 EPW_DIR = Path("data")
+place = {"lag": {"unit_price": 0.12, "unit_C": 0.38}, "mad": {"unit_price": 0.20, "unit_C": 0.12}, "cam": {"unit_price": 0.27, "unit_C": 0.12}}
 
 # -------------------------------------------------------
 # Page config
@@ -62,6 +63,18 @@ selected_epw = st.sidebar.selectbox(
 
 epw_path = epw_files[epw_names.index(selected_epw)]
 
+#selected location (mad, CAM, Lag) to access data place dict
+for key in place:
+    if key.lower() in selected_epw.lower():
+        data = place[key]
+        break
+unit_price = data["unit_price"]
+unit_C = data["unit_C"]
+
+col1, col2 = st.columns(2)
+col1.metric("Unit Price (£/kWh)", unit_price)
+col2.metric("Grid Carbon (kgCO2/kWh)", unit_c)
+
 st.sidebar.markdown("---")
 st.sidebar.header("Run Simulation")
 
@@ -76,7 +89,7 @@ GAIN_EQUIP = 8 * FLOOR_AREA
 GAIN_LIGHTS = 10 * FLOOR_AREA
 GAIN_INTERNAL = GAIN_OCC + GAIN_EQUIP + GAIN_LIGHTS
 #some details about each location 
-place = {"lag": {"unit_price": 0.12, "unit_C": 0.38}, "mad": {"unit_price": 0.20, "unit_C": 0.12}, "cam": {"unit_price": 0.27, "unit_C": 0.12}}
+
 
 # -------------------------------------------------------
 # Glazing definitions
@@ -203,13 +216,7 @@ if st.button("Run annual cooling simulation"):
 
     st.success("Simulation complete ✅")
     
-    #selected location (mad, CAM, Lag) to access data place dict
-    for key in place:
-        if key.lower() in selected_epw.lower():
-            data = place[key]
-            break
-    unit_price = data["unit_price"]
-    unit_C = data["unit_C"]
+
     
     # Results table
     results_df = pd.DataFrame.from_dict(
