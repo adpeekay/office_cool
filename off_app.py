@@ -216,6 +216,8 @@ if st.button("Run annual cooling simulation"):
         results, orient="index", columns=["Annual Cooling (kWh)"]
     )
     baseline = results_df.loc["Normal Glass", "Annual Cooling (kWh)"] #added
+    #baseline_price = results_df.loc["Normal Glass", "Annual Cooling (kWh)"]
+    #baseline_C = results_df.loc["Normal Glass", "Annual Cooling (kWh)"]
 
     results_df["Reduction (%)"] = (
         100 * (baseline - results_df["Annual Cooling (kWh)"]) / baseline
@@ -224,9 +226,9 @@ if st.button("Run annual cooling simulation"):
     #attempt to get grid  carbon and cost savings involved
     #grid_df = pd.DataFrame.from_dict(place, orient="index")
     
-    results_df["Cost Saving (£)"] = (unit_price * results_df["Annual Cooling (kWh)"])
+    results_df["Cost Saving (£)"] = (unit_price * (baseline - results_df["Annual Cooling (kWh)"]) )
 
-    results_df["CO2 savings (kgCO2/kWh)"] = (unit_C * results_df["Annual Cooling (kWh)"])
+    results_df["CO2 savings (kgCO2/kWh)"] = (unit_C * (baseline - results_df["Annual Cooling (kWh)"]) )
         
     st.dataframe(results_df.style.format("{:.1f}"))
 
