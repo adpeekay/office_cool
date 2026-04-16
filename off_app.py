@@ -202,7 +202,15 @@ if st.button("Run annual cooling simulation"):
             results[name] = simulate_cooling(df, g)
 
     st.success("Simulation complete ✅")
-
+    
+    #selected location (mad, CAM, Lag) to access data place dict
+    for key in place:
+        if key.lower() in epw.selected.lower()
+        data = place[key]
+        break
+    unit_price = data["unit_price"]
+    unit_C = data["unit_C"]
+    
     # Results table
     results_df = pd.DataFrame.from_dict(
         results, orient="index", columns=["Annual Cooling (kWh)"]
@@ -214,9 +222,11 @@ if st.button("Run annual cooling simulation"):
     ) #added
 
     #attempt to get grid  carbon and cost savings involved
-    #grid_df = pd.DataFrame.from_dict(place, orient="index", columns=["unit price", "unit carbon"])
+    #grid_df = pd.DataFrame.from_dict(place, orient="index")
     
-    #result_df["Cost Saving (£)"] = (
+    results_df["Cost Saving (£)"] = (unit_price * results_df["Annual Cooling (kWh)"])
+
+    results_df["CO2 savings (kgCO"/kWh)"] = (unit_C * results_df["Annual Cooling (kWh)"])
         
     st.dataframe(results_df.style.format("{:.1f}"))
 
