@@ -73,7 +73,7 @@ unit_C = data["unit_C"]
 
 col1, col2 = st.columns(2)
 col1.metric("Unit Price (£/kWh)", unit_price)
-col2.metric("Grid Carbon (kgCO2/kWh)", unit_c)
+col2.metric("Grid Carbon (kgCO2/kWh)", unit_C)
 
 st.sidebar.markdown("---")
 st.sidebar.header("Run Simulation")
