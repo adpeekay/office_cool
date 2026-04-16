@@ -21,15 +21,15 @@ place = {"lag": {"unit_price": 0.12, "unit_C": 0.38}, "mad": {"unit_price": 0.20
 # -------------------------------------------------------
 
 st.set_page_config(
-    page_title="Cambridge Office Cooling Model",
+    page_title="General Office Cooling Model",
     layout="centered"
 )
 
-st.title("🏢 Cooling‑Only Energy Model – Cambridge Office")
+st.title("🏢 Office Cooling Energy Model – limited locations")
 st.markdown(
     """
     **Cooling demand comparison for different glazing types**  
-    Location: Cambridge, UK  
+    Location: selectable (Cambridge, Madrid, Lagos)  
     Model includes internal gains, solar gains, and optional PV offset.
     """
 )
