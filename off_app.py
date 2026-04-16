@@ -226,7 +226,7 @@ if st.button("Run annual cooling simulation"):
     
     results_df["Cost Saving (£)"] = (unit_price * results_df["Annual Cooling (kWh)"])
 
-    results_df["CO2 savings (kgCO"/kWh)"] = (unit_C * results_df["Annual Cooling (kWh)"])
+    results_df["CO2 savings (kgCO2/kWh)"] = (unit_C * results_df["Annual Cooling (kWh)"])
         
     st.dataframe(results_df.style.format("{:.1f}"))
 
