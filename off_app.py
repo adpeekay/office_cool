@@ -206,8 +206,8 @@ if st.button("Run annual cooling simulation"):
     #selected location (mad, CAM, Lag) to access data place dict
     for key in place:
         if key.lower() in epw.selected.lower():
-        data = place[key]
-        break
+            data = place[key]
+            break
     unit_price = data["unit_price"]
     unit_C = data["unit_C"]
     
